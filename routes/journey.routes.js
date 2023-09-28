@@ -13,7 +13,7 @@ router.post("/journeys", (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });
-
+//
 //GET Route to retrieve all of the Journeys
 router.get('/journeys', (req, res, next) => {
     Journey.find()
