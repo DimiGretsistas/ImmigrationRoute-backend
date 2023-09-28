@@ -16,7 +16,7 @@ const journeyRouter = require('./routes/journey.routes');
 app.use('/api', isAuthenticated, journeyRouter);
 
 const taskRouter = require('./routes/task.routes');
-app.use('/api', isAuthenticated, taskRouter);
+app.use('/api', taskRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
