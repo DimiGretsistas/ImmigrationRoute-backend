@@ -13,11 +13,10 @@ router.post("/journeys", (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });
-//
 //GET Route to retrieve all of the Journeys
 router.get('/journeys', (req, res, next) => {
     Journey.find()
-        .populate('task')
+        .populate('tasks')
         .then(allJourneys => res.json(allJourneys))
         .catch(err => res.json(err));
 })
@@ -32,7 +31,7 @@ router.get('/journeys/:journeyId', (req, res, next) => {
     }
     // Populate the tasks IDs to swap them for the actual tasks
     Journey.findById(journeyId)
-        .populate('task')
+        .populate('tasks')
         .then(journey => res.status(200).json(journey))
         .catch(error => res.json(error));
 })
