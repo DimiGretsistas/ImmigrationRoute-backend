@@ -65,7 +65,7 @@ router.delete("/user/:userId", isAuthenticated, (req, res) => {
             if (!deletedUser) {
                 return res.status(404).json({ error: "User not found" });
             }
-            res.status(204).send(); // No content to send (successful deletion)
+            res.status(204).send(); 
         })
         .catch((error) => {
             res.status(500).json({ error: "Internal server error" });
