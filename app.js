@@ -22,7 +22,7 @@ const taskRouter = require('./routes/task.routes');
 app.use('/task', taskRouter);
 
 const userRouter = require("./routes/user.routes");
-app.use("/user", isAuthenticated, userRouter);
+app.use("/user/:userId", isAuthenticated, userRouter);
 
 require("./error-handling")(app);
 
