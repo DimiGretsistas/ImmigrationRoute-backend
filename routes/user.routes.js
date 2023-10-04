@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
 });
 
 // READ: Get user profile by ID
-router.get("/user/:userId", isAuthenticated, (req, res) => {
+router.get("/:userId", isAuthenticated, (req, res) => {
     const userId = req.params.userId;
 
     User.findById(userId)
@@ -38,11 +38,11 @@ router.get("/user/:userId", isAuthenticated, (req, res) => {
 // UPDATE: Update user profile by ID
 router.put("/user/:userId", isAuthenticated, (req, res) => {
     const userId = req.params.userId;
-    const { email, password, name,} = req.body;
+    const { email, password, name, } = req.body;
 
     User.findByIdAndUpdate(
         userId,
-        { email, password, name,},
+        { email, password, name, },
         { new: true } // Return the updated user
     )
         .then((updatedUser) => {
@@ -65,7 +65,7 @@ router.delete("/user/:userId", isAuthenticated, (req, res) => {
             if (!deletedUser) {
                 return res.status(404).json({ error: "User not found" });
             }
-            res.status(204).send(); 
+            res.status(204).send();
         })
         .catch((error) => {
             res.status(500).json({ error: "Internal server error" });
