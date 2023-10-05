@@ -5,8 +5,8 @@ const { isAuthenticated } = require('../middleware/jwt.middleware');
 const User = require('../models/User.model');
 
 router.post("/", (req, res) => {
-    const { email, password, name, avatar } = req.body;
-    const newUser = new User({ email, password, name, avatar });
+    const { email, password, name, } = req.body;
+    const newUser = new User({ email, password, name, });
 
     newUser
         .save()
