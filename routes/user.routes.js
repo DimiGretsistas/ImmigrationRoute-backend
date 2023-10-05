@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 const User = require('../models/User.model');
 
-// CREATE: Create a new user
 router.post("/", (req, res) => {
     const { email, password, name, avatar } = req.body;
     const newUser = new User({ email, password, name, avatar });
@@ -19,10 +18,9 @@ router.post("/", (req, res) => {
         });
 });
 
-// READ: Get user profile by ID
-router.get("/user/:userId", isAuthenticated, (req, res) => {
+router.get("/:userId", isAuthenticated, (req, res) => {
     const userId = req.params.userId;
-
+    console.log(userId)
     User.findById(userId)
         .then((foundUser) => {
             if (!foundUser) {
@@ -35,14 +33,20 @@ router.get("/user/:userId", isAuthenticated, (req, res) => {
         });
 });
 
+router.get("/", isAuthenticated, (req, res) => {
+    res.send("hello world !")
+})
+
 // UPDATE: Update user profile by ID
-router.put("/user/:userId/edit", isAuthenticated, (req, res) => {
+router.put("/:userId", isAuthenticated, (req, res) => {
     const userId = req.params.userId;
-    const { email, password, name, } = req.body;
+    console.log("userId _ _ _ _ ", userId)
+    const { email, name } = req.body;
+    console.log("Email _____ name", email, name)
 
     User.findByIdAndUpdate(
         userId,
-        { email, password, name, },
+        { email, name, },
         { new: true } // Return the updated user
     )
         .then((updatedUser) => {
@@ -57,10 +61,11 @@ router.put("/user/:userId/edit", isAuthenticated, (req, res) => {
 });
 
 // DELETE: Delete user profile by ID
-router.delete("/user/:userId/delete", isAuthenticated, (req, res) => {
-    const userId = req.params.userId;
 
-    User.findByIdAndRemove(userId)
+router.delete("/:userId", isAuthenticated, (req, res) => {
+    const userId = req.params.userId;
+    console.log("User Id", userId)
+    User.findOneAndRemove(userId)
         .then((deletedUser) => {
             if (!deletedUser) {
                 return res.status(404).json({ error: "User not found" });
